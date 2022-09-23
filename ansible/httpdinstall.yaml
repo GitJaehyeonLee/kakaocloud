@@ -10,7 +10,7 @@
         name: httpd
         state: present
       when: ansible_os_family == "RedHat"
-      register: result_install
+      register: result_install          
 
     - debug:
         var: result_install
@@ -22,8 +22,24 @@
         enabled: true
       when: ansible_os_family == "RedHat"
 
+    - name: get url
+      get_url: url="http://192.168.1.97/test.html dest=/var/www/html/index.html mode=0644"
+      notify:
+        - restart httpd
+      when: ansible_os_family == "RedHat"
+      register: result_httpd_restarted        
+    
+    - debug:
+      var: result_httpd_restarted
+
     - name: apache2 ubuntu install
       apt:
         name: apache2
         state: present
       when: ansible_os_family == "Debian"
+  
+  handlers:
+    - name: restart httpd
+      service:
+        name: httpd
+        state: restarted
