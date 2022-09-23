@@ -1,0 +1,10 @@
+---
+- name: HTTPD 설치
+  hosts: koreaeast
+  gather_facts: false
+  
+  tasks:
+    - name: httpd installation
+      yum:
+        name: httpd
+        state: present

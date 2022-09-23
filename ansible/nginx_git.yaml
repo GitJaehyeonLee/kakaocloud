@@ -1,0 +1,26 @@
+---
+- name: web setting
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: install epel
+      yum: name=epel-release state=latest
+
+    - name: nginx installation
+      yum:
+        name: nginx
+        state: present
+
+    - name: nginx start and enable
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: using git
+      git:
+        repo: "https://github.com/GitJaehyeonLee/test_web.git"
+        dest: /usr/share/nginx/html/shop
+        version: main
+        update: yes

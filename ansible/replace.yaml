@@ -1,0 +1,13 @@
+---
+- name: test
+  hosts: localhost
+
+  tasks:
+  - name: Replace
+    replace:
+      path: /home/vagrant/test
+      regexp: "{{ item.From }}"
+      replace: "{{ item.To }}"
+    with_items:
+      - { From: 'soo', To: 'chul'}
+      - { From: 'dong', To: 'min'}
