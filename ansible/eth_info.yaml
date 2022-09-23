@@ -1,0 +1,11 @@
+---
+- name: check kvm network interface
+  hosts: all
+
+  tasks:
+    - name: node ip address 
+      debug:
+        msg:
+          - "Node name : {{ ansible_host }}"
+          - "eth0's ip {{ ansible_eth0.ipv4.address }}"
+          - "eth1's ip {{ ansible_eth1.ipv4.address }}"
