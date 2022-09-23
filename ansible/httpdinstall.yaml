@@ -5,10 +5,21 @@
   become: yes
 
   tasks:
-    - name: httpd installation
+    - name: httpd RedHat installation
       yum:
         name: httpd
         state: present
+      when: ansible_os_family == "RedHat"
+      register: result_install
+
+    - debug:
+        var: result_install
+
+    - name: httpd start and enable
+      service:
+        name: httpd
+        state: started
+        enabled: true
       when: ansible_os_family == "RedHat"
 
     - name: apache2 ubuntu install
